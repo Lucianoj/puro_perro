@@ -12,7 +12,7 @@ use Yii;
  * @property integer $estado_aviso_id
  * @property integer $created_by
  * @property string $titulo
- * @property integer $inmueble_id
+ * @property integer $perro_id
  * @property string $created_at
  * @property string $updated_at
  * @property integer $updated_by
@@ -21,7 +21,7 @@ use Yii;
  * @property User $createdBy
  * @property TipoAviso $tipoAviso
  * @property EstadoAviso $estadoAviso
- * @property Inmueble $inmueble
+ * @property Perro $perro
  */
 class Aviso extends \yii\db\ActiveRecord
 {
@@ -39,15 +39,15 @@ class Aviso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo_aviso_id', 'estado_aviso_id', 'created_by', 'titulo', 'inmueble_id', 'updated_by'], 'required'],
-            [['tipo_aviso_id', 'estado_aviso_id', 'created_by', 'inmueble_id', 'updated_by'], 'integer'],
+            [['tipo_aviso_id', 'estado_aviso_id', 'created_by', 'titulo', 'perro_id', 'updated_by'], 'required'],
+            [['tipo_aviso_id', 'estado_aviso_id', 'created_by', 'perro_id', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['titulo'], 'string', 'max' => 100],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['tipo_aviso_id'], 'exist', 'skipOnError' => true, 'targetClass' => TipoAviso::className(), 'targetAttribute' => ['tipo_aviso_id' => 'id']],
             [['estado_aviso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EstadoAviso::className(), 'targetAttribute' => ['estado_aviso_id' => 'id']],
-            [['inmueble_id'], 'exist', 'skipOnError' => true, 'targetClass' => Inmueble::className(), 'targetAttribute' => ['inmueble_id' => 'id']],
+            [['perro_id'], 'exist', 'skipOnError' => true, 'targetClass' => Perro::className(), 'targetAttribute' => ['perro_id' => 'id']],
         ];
     }
 
@@ -62,7 +62,7 @@ class Aviso extends \yii\db\ActiveRecord
             'estado_aviso_id' => 'Estado Aviso ID',
             'created_by' => 'Created By',
             'titulo' => 'Titulo',
-            'inmueble_id' => 'Inmueble ID',
+            'perro_id' => 'Inmueble ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
@@ -106,6 +106,6 @@ class Aviso extends \yii\db\ActiveRecord
      */
     public function getInmueble()
     {
-        return $this->hasOne(Inmueble::className(), ['id' => 'inmueble_id']);
+        return $this->hasOne(Inmueble::className(), ['id' => 'perro_id']);
     }
 }

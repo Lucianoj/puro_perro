@@ -8,16 +8,15 @@ use app\models\PermisosHelpers;
 
 $es_root = (!Yii::$app->user->isGuest && PermisosHelpers::requerirRol('root'));
 if($es_root) {
-    $this->title = Yii::t('app', 'Update {modelClass}: ', [
-        'modelClass' => 'User',
-    ]) . $model->id;
+    $titulo1 = 'Modificar datos de ';
+    $titulo2 = $model->apodo;
     $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
-    $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-    $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+    $this->params['breadcrumbs'][] = ['label' => $titulo2, 'url' => ['view', 'id' => $model->id]];
+//    $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     ?>
     <div class="user-update">
 
-        <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
+        <h1 class="text-center"><?= $titulo1 ?><div class="text-info"> <?= $titulo2 ?></div></h1> <br>
 
         <?= $this->render('_form', [
             'model' => $model,
@@ -28,7 +27,7 @@ if($es_root) {
 } else { ?>
     <div class="user-update">
 
-        <h1 class="text-center"><?= Html::encode($this->title) ?></h1> <br>
+        <h1 class="text-center text-info"><?= $titulo2 ?></div></h1> <br>
         <h1 class="text-center text-danger"><?= Html::encode('Usted no tiene autorización para editar usuarios') ?></h1>
 
         

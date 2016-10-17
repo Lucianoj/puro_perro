@@ -11,7 +11,7 @@ use yii\helpers\Security;
 use yii\helpers\ArrayHelper;
 use app\models\Rol;
 use app\models\EstadoUser;
-use app\models\TipoUsuario;
+use app\models\TipoUser;
 use app\models\Perfil;
 use yii\helpers\Url;
 use yii\helpers\Html;
@@ -22,22 +22,35 @@ use yii\behaviors\BlameableBehavior;
  * This is the model class for table "user".
  *
  * @property integer $id
- * @property string $username
- * @property string $telefono
+ * @property string $apodo
+ * @property string $nombre
+ * @property string $apellido
+ * @property string $domicilio
+ * @property integer $telefono_fijo
+ * @property integer $telefono_celular
+ * @property integer $localidad_id
+ * @property integer $estado_usuario_id
+ * @property integer $tipo_usuario_id
+ * @property integer $rol_id
  * @property string $email
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
- * @property integer $rol_id
- * @property integer $estado_user_id
- * @property integer $tipo_usuario_id
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $desea_adoptar
+ * @property integer $ofrece_transito
+ * @property double $latitud
+ * @property double $longitud
  *
- * @property EstadoUser $estadoUser
+ * @property Aviso[] $avisos
+ * @property Aviso[] $avisos0
+ * @property Imagen[] $imagens
+ * @property Imagen[] $imagens0
+ * @property Tratamiento[] $tratamientos
+ * @property EstadoUsuario $estadoUsuario
  * @property Rol $rol
- * @property TipoUsuario $tipoUsuario
- * @property UserEntregaEntrada[] $userEntregaEntradas
+ * @property TipoUser $tipoUsuario
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -76,27 +89,37 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-//            ['estado_user_id', 'default', 'value' => self::ESTADO_ACTIVO],
-            [['estado_user_id'], 'in', 'range' => array_keys($this->getEstadoLista())],
+            [['estado_usuario_id'], 'in', 'range' => array_keys($this->getEstadoLista())],
 //            ['rol_id', 'default', 'value' => 1],
 //            ['tipo_usuario_id', 'default', 'value' => 1],
-//            [['tipo_usuario_id'], 'in', 'range' => array_keys($this->getTipoUsuarioLista())],
-            [['telefono'], 'string', 'max' => 25],
-//            [['telefono'], 'unique'],
-            [['telefono'], 'required'],
-            ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+//            [['tipo_usuario_id'], 'in', 'range' => array_keys($this->getTipoUserLista())],
+            [['telefono_fijo', 'telefono_celular'], 'string', 'max' => 25],
+            [['telefono_celular'], 'unique'],
+            [['telefono_celular'], 'required'],
+            [['apodo', 'nombre', 'apellido', 'domicilio', 'localidad_id', 'email', 'auth_key', 'password_hash'], 'required'],
+            [['telefono_fijo', 'telefono_celular', 'localidad_id', 'estado_usuario_id', 'tipo_usuario_id', 'rol_id', 'desea_adoptar', 'ofrece_transito'], 'integer'],
+            ['apodo', 'filter', 'filter' => 'trim'],
+            ['apodo', 'required'],
+            ['apodo', 'unique'],
+            ['apodo', 'string', 'min' => 2, 'max' => 255],
             ['email', 'filter', 'filter' => 'trim'],
-//            [['created_at', 'updated_at'], 'safe'],
-            //------
-//            [['username', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
+            [['created_at', 'updated_at'], 'safe'],
+            [['apodo', 'nombre', 'apellido'], 'string', 'max' => 45],
+            [['domicilio'], 'string', 'max' => 100],
+            [['latitud', 'longitud'], 'number'],
 //            [['auth_key'], 'string', 'max' => 32],
-//            [['username'], 'unique'],
-//            [['estado_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => EstadoUser::className(), 'targetAttribute' => ['estado_user_id' => 'id']],
+//            [['estado_usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => EstadoUser::className(), 'targetAttribute' => ['estado_usuario_id' => 'id']],
 //            [['rol_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['rol_id' => 'id']],
-//            [['tipo_usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => TipoUsuario::className(), 'targetAttribute' => ['tipo_usuario_id' => 'id']],
+//            [['tipo_usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => TipoUser::className(), 'targetAttribute' => ['tipo_usuario_id' => 'id']],
+//            [['localidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Localidad::className(), 'targetAttribute' => ['localidad_id' => 'id']],
+
+            //------
+//            [['apodo', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
+//            [['auth_key'], 'string', 'max' => 32],
+//            [['apodo'], 'unique'],
+//            [['estado_usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => EstadoUser::className(), 'targetAttribute' => ['estado_usuario_id' => 'id']],
+//            [['rol_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['rol_id' => 'id']],
+//            [['tipo_usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => TipoUser::className(), 'targetAttribute' => ['tipo_usuario_id' => 'id']],
         ];
     }
 
@@ -105,16 +128,37 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             /* Sus otras etiquetas de atributo */
+            'id' => 'ID',
+            'apodo' => 'Apodo',
+            'nombre' => 'Nombre',
+            'apellido' => 'Apellido',
+            'domicilio' => 'Domicilio',
+            'telefono_fijo' => 'Telefono Fijo',
+            'telefono_celular' => 'Telefono Celular',
+            'localidad_id' => 'Localidad',
+            'desea_adoptar' => 'Desea Adoptar',
+            'ofrece_transito' => 'Ofrece Transito',
+            'estado_usuario_id' => 'Estado User',
+            'tipo_usuario_id' => 'Tipo User',
+            'rol_id' => 'Rol',
+            'email' => 'E-mail',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+
             'rolNombre' => Yii::t('app', 'Rol'),
-            'telefono' => Yii::t('app', 'Teléfono'),
             'estadoNombre' => Yii::t('app', 'Estado'),
             'perfilId' => Yii::t('app', 'Perfil'),
             'perfilLink' => Yii::t('app', 'Perfil'),
-            'userLink' => Yii::t('app', 'Usuario'),
-            'userName' => Yii::t('app', 'Usuario'),
-            'tipoUsuarioNombre' => Yii::t('app', 'Tipo Usuario'),
-            'tipoUsuarioId' => Yii::t('app', 'Tipo Usuario'),
+            'userLink' => Yii::t('app', 'User'),
+            'apodo' => Yii::t('app', 'User'),
+            'tipoUserNombre' => Yii::t('app', 'Tipo User'),
+            'tipoUserId' => Yii::t('app', 'Tipo User'),
             'userIdLink' => Yii::t('app', 'ID'),
+            'latitud' => 'Latitud',
+            'longitud' => 'Longitud',
         ];
     }
 
@@ -135,17 +179,17 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Encuentra usuario por username
-     * @param string $username
+     * Encuentra user por apodo
+     * @param string $apodo
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByapodo($apodo)
     {
-        return static::findOne(['username' => $username]);
+        return static::findOne(['apodo' => $apodo]);
     }
 
     /**
-     * Encuentra usuario por clave de restablecimiento de password
+     * Encuentra user por clave de restablecimiento de password
      *
      * @param string $token clave de restablecimiento de password
      * @return static|null
@@ -205,7 +249,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Valida password
      *
      * @param string $password password a validar
-     * @return boolean si la password provista es válida para el usuario actual
+     * @return boolean si la password provista es válida para el user actual
      */
     public function validatePassword($password)
     {
@@ -259,7 +303,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * @getRol relacion get rol
-     * @return type
+     * @return \yii\db\ActiveQuery
      */
     public function getRol()
     {
@@ -289,11 +333,12 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getEstado()
     {
-        return $this->hasOne(EstadoUser::className(), ['id' => 'estado_user_id']);
+        return $this->hasOne(EstadoUser::className(), ['id' => 'estado_usuario_id']);
     }
     
     /**
      * @getEstadoNombre get estado nombre
+     * @return \yii\db\ActiveQuery
      */
     public function getEstadoNombre()
     {
@@ -311,37 +356,36 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * 
-     * @getTipoUsuario 
+     * @return \yii\db\ActiveQuery
      */
     public function getTipoUsuario()
     {
-        return $this->hasOne(TipoUsuario::className(), ['id' => 'tipo_usuario_id']);
+       return $this->hasOne(TipoUser::className(), ['id' => 'tipo_usuario_id']);
     }
 
     /**
-     * @getTipoUsuarioNombre get tipo usuario nombre
+     * @getTipoUserNombre get tipo user nombre
      */
     public function getTipoUsuarioNombre()
     {
-        return $this->tipoUsuario ? $this->tipoUsuario->tipo_usuario_nombre : '- sin tipo usuario -';
+        return $this->tipoUsuario ? $this->tipoUsuario->tipo_user_nombre : '- sin tipo user -';
     }
 
     /**
-     * @getTipoUsuarioLista get lista de tipo usuario para lista desplegable
+     * @getTipoUserLista get lista de tipo user para lista desplegable
      */
-    public static function getTipoUsuarioLista()
+    public static function getTipoUserLista()
     {
-        $dropciones = TipoUsuario::find()->asArray()->all();
-        return ArrayHelper::map($dropciones, 'id', 'tipo_usuario_nombre');
+        $dropciones = TipoUser::find()->asArray()->all();
+        return ArrayHelper::map($dropciones, 'id', 'tipo_user_nombre');
     }
 
     /**
-     * @getTipoUsuarioId
+     * @getTipoUserId
      */
-    public function getTipoUsuarioId()
+    public function getTipoUserId()
     {
-        return $this->tipoUsuario ? $this->tipoUsuario->id : 'ninguno';
+        return $this->tipoUser ? $this->tipoUser->id : 'ninguno';
     }
 
     /**
@@ -379,13 +423,37 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $url = Url::to(['use/view', 'id' => $this->id]);
         $opciones = [];
-        return Html::a($this->username, $url, $opciones);
+        return Html::a($this->apodo, $url, $opciones);
     }
     
     public static function roleInArray($arr_role) 
     { 
         return in_array(Yii::$app->user->identity->rol_id, $arr_role); 
-    } 
+    }
+
+
+    /**
+     * @getLocalidad relacion get localidad
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocalidad()
+    {
+        return $this->hasOne(Localidad::className(), ['id' => 'localidad_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeseaAdoptarSiNo() {
+        return $this->desea_adoptar?'Si':'No';
+    }
+
+    /**
+     * @return string
+     */
+    public function getOfreceTransitoSiNo() {
+        return $this->ofrece_transito?'Si':'No';
+    }
 
     
 } 

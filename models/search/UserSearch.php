@@ -18,8 +18,9 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'rol_id', 'estado_user_id', 'tipo_usuario_id'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'telefono_fijo', 'telefono_celular', 'localidad_id', 'estado_usuario_id', 'tipo_usuario_id', 'rol_id', 'desea_adoptar', 'ofrece_transito'], 'integer'],
+            [['apodo', 'nombre', 'apellido', 'domicilio', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'created_at', 'updated_at'], 'safe'],
+            [['latitud', 'longitud'], 'number'],
         ];
     }
 
@@ -60,19 +61,28 @@ class UserSearch extends User
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'rol_id' => $this->rol_id,
-            'estado_user_id' => $this->estado_user_id,
+            'telefono_fijo' => $this->telefono_fijo,
+            'telefono_celular' => $this->telefono_celular,
+            'localidad_id' => $this->localidad_id,
+            'estado_usuario_id' => $this->estado_usuario_id,
             'tipo_usuario_id' => $this->tipo_usuario_id,
+            'rol_id' => $this->rol_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'desea_adoptar' => $this->desea_adoptar,
+            'ofrece_transito' => $this->ofrece_transito,
+            'latitud' => $this->latitud,
+            'longitud' => $this->longitud,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
+        $query->andFilterWhere(['like', 'apodo', $this->apodo])
+            ->andFilterWhere(['like', 'nombre', $this->nombre])
+            ->andFilterWhere(['like', 'apellido', $this->apellido])
+            ->andFilterWhere(['like', 'domicilio', $this->domicilio])
+            ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'telefono', $this->telefono]);
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token]);
 
         return $dataProvider;
     }

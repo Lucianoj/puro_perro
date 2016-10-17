@@ -34,7 +34,7 @@ $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'JR Inmobiliaria',
+        'brandLabel' => 'Puro Perro',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -56,9 +56,9 @@ $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
                 ['label' => 'Inicio', 'url' => ['/site/index']],
                 ['label' => 'Usuarios', 'url' => ['/user/index']],
                 ['label' => 'Avisos', 'url' => ['/aviso/index']],
-                ['label' => 'Inmuebles', 'url' => ['/inmueble/index']],
+                ['label' => 'Perros', 'url' => ['/perro/index']],
                 [
-                    'label' => 'Salir ('.Yii::$app->user->identity->username . ')',
+                    'label' => 'Salir ('.Yii::$app->user->identity->apodo . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ]
@@ -74,7 +74,7 @@ $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
                 ['label' => 'Avisos', 'url' => ['/avisos/index']],
                 ['label' => 'Inmuebles', 'url' => ['/inmuebles/index']],
                 [
-                    'label' => 'Salir ('.Yii::$app->user->identity->username . ')',
+                    'label' => 'Salir ('.Yii::$app->user->identity->apodo . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ]

@@ -6,7 +6,7 @@ use Yii;
 use app\models\User;
 
 /**
- * This is the model class for table "estado_user".
+ * This is the model class for table "estado_usuario".
  *
  * @property integer $id
  * @property string $estado_nombre
@@ -19,7 +19,7 @@ class EstadoUser extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'estado_user';
+        return 'estado_usuario';
     }
 
     /**

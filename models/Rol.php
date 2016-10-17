@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\User;
 
 /**
  * This is the model class for table "rol".
@@ -11,7 +12,7 @@ use Yii;
  * @property string $rol_nombre
  * @property integer $rol_valor
  *
- * @property Usuario[] $usuarios
+ * @property User[] $users
  */
 class Rol extends \yii\db\ActiveRecord
 {
@@ -50,8 +51,8 @@ class Rol extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUsuarios()
+    public function getUsers()
     {
-        return $this->hasMany(Usuario::className(), ['rol_id' => 'id']);
+        return $this->hasMany(User::className(), ['rol_id' => 'id']);
     }
 }

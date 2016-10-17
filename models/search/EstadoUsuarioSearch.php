@@ -5,12 +5,12 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\EstadoUser;
+use app\models\EstadoUsuario;
 
 /**
  * EstadoUserSearch represents the model behind the search form about `app\models\EstadoUser`.
  */
-class EstadoUserSearch extends EstadoUser
+class EstadoUsuarioSearch extends EstadoUsuario
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class EstadoUserSearch extends EstadoUser
      */
     public function search($params)
     {
-        $query = EstadoUser::find();
+        $query = EstadoUsuario::find();
 
         // add conditions that should always apply here
 

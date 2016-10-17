@@ -18,7 +18,7 @@ class AvisoSearch extends Aviso
     public function rules()
     {
         return [
-            [['id', 'tipo_aviso_id', 'estado_aviso_id', 'created_by', 'inmueble_id', 'updated_by'], 'integer'],
+            [['id', 'tipo_aviso_id', 'estado_aviso_id', 'created_by', 'perro_id', 'updated_by'], 'integer'],
             [['titulo', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -63,7 +63,7 @@ class AvisoSearch extends Aviso
             'tipo_aviso_id' => $this->tipo_aviso_id,
             'estado_aviso_id' => $this->estado_aviso_id,
             'created_by' => $this->created_by,
-            'inmueble_id' => $this->inmueble_id,
+            'perro_id' => $this->perro_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,

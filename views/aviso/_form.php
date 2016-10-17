@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'inmueble_id')->textInput() ?>
+    <?= $form->field($model, 'perro_id')->textInput() ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 

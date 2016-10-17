@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'estado_aviso_id',
             'created_by',
             'titulo',
-            'inmueble_id',
+            'perro_id',
             'created_at',
             'updated_at',
             'updated_by',
