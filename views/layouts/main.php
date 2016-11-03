@@ -77,7 +77,8 @@ $es_admin = !$esInvitado && PermisosHelpers::requerirRol('admin');
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
-                ['label' => 'Inmuebles', 'url' => ['/inmuebles/index']],
+                ['label' => 'Avisos', 'url' => ['/avisos/index']],
+                ['label' => 'Perros', 'url' => ['/perro/index']],
                 [
                     'label' => 'Salir ('.Yii::$app->user->identity->apodo . ')',
                     'url' => ['/site/logout'],

@@ -65,7 +65,13 @@ class AvisoController extends Controller
     {
         $model = new Aviso();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->estado_aviso_id = 1;
+            $model->created_by = 'user'; // Arreglar
+            $model->created_at = NOW(); // Arreglar
+            $model->updated_at = NOW(); // Arreglar
+            $model->updated_by = 'user'; // Arreglar
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
