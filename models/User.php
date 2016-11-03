@@ -60,7 +60,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function tableName()
     {
-        return 'user';
+        return 'usuario';
     }
 
     /**
@@ -183,7 +183,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $apodo
      * @return static|null
      */
-    public static function findByapodo($apodo)
+    public static function findByUsername($apodo)
     {
         return static::findOne(['apodo' => $apodo]);
     }

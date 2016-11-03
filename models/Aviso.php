@@ -62,7 +62,7 @@ class Aviso extends \yii\db\ActiveRecord
             'estado_aviso_id' => 'Estado Aviso ID',
             'created_by' => 'Created By',
             'titulo' => 'Titulo',
-            'perro_id' => 'Inmueble ID',
+            'perro_id' => 'Perro ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',

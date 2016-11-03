@@ -129,15 +129,6 @@ return array (
       '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf',
     ),
   ),
-  'kartik-v/yii2-social' => 
-  array (
-    'name' => 'kartik-v/yii2-social',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@kartik/social' => $vendorDir . '/kartik-v/yii2-social',
-    ),
-  ),
   'kartik-v/yii2-widget-datepicker' => 
   array (
     'name' => 'kartik-v/yii2-widget-datepicker',
@@ -172,6 +163,15 @@ return array (
     'alias' => 
     array (
       '@kartik/detail' => $vendorDir . '/kartik-v/yii2-detail-view',
+    ),
+  ),
+  'kartik-v/yii2-social' => 
+  array (
+    'name' => 'kartik-v/yii2-social',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/social' => $vendorDir . '/kartik-v/yii2-social',
     ),
   ),
 );

@@ -72,7 +72,7 @@ $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
             'items' => [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
                 ['label' => 'Avisos', 'url' => ['/avisos/index']],
-                ['label' => 'Inmuebles', 'url' => ['/inmuebles/index']],
+                ['label' => 'Perros', 'url' => ['/inmuebles/index']],
                 [
                     'label' => 'Salir ('.Yii::$app->user->identity->apodo . ')',
                     'url' => ['/site/logout'],

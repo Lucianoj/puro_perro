@@ -23,7 +23,7 @@ $this->title = 'Puro Perro';
 
                         <p>Quiero publicar un aviso sobre un perro</p>
 
-                        <?= Html::a('Publicar &raquo;', ['aviso/index'], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a('Publicar &raquo;', ['aviso/create'], ['class' => 'btn btn-primary']) ?>
                     </div>
                     <div class="col-lg-6 text-center">
                         <h2><i class="fa fa-bug"></i> ABM Perros</h2>
