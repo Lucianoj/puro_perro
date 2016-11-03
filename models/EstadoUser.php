@@ -48,7 +48,7 @@ class EstadoUser extends \yii\db\ActiveRecord
 
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['estado_id' => 'id']);
+        return $this->hasMany(User::className(), ['estado_usuario_id' => 'id']);
     }
 }
 

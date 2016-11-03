@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
+use app\models\PasswordResetRequestForm;
 
 class SiteController extends Controller
 {
@@ -97,6 +98,29 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * Requests password reset.
+     *
+     * @return mixed
+     */
+    public function actionRequestPasswordReset()
+    {
+        $model = new PasswordResetRequestForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Verifique su mail para más instrucciones.');
+
+                return $this->goHome();
+            } else {
+                Yii::$app->session->setFlash('error', 'Perdón, no podemos resetear la contraseña para el mail provisto.');
+            }
+        }
+
+        return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
     }
 
     public function actionAbout()

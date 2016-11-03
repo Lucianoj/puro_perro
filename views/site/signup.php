@@ -9,6 +9,11 @@ use yii\bootstrap\ActiveForm;
 use app\models\Localidad;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
+use app\models\PermisosHelpers;
+use app\models\Rol;
+
+$es_root = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol('root');
+$es_admin = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol('admin');
 
 $this->title = ' Alta de Usuario';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,11 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col col-lg-6">
             <div class="panel panel-info">
-                <div class="panel-heading"><h4 class="text-default"><i class="fa fa-exclamation-triangle"></i> Por favor complete sus datos</h4></div>
+                <div class="panel-heading">
+                    <h4 class="text-default"><i class="fa fa-exclamation-triangle"></i> Por favor complete sus datos</h4>
+                    <div class="text-warning">(*) Campos Obligatorios</div>
+                </div>
                 <div class="panel-body">
                     <?php $form = ActiveForm::begin(['id' => 'signup-form']); ?>
 
-                        <?= $form->field($model, 'apodo') ?>
+                        <?= $form->field($model, 'apodo')->textInput(['maxlength' => true, 'id' => 'address', 'placeholder' => 'NickName o apodo, como te gusta que te llamen!']) ?>
 
                         <div class="row">
                             <div class="col col-lg-6">
@@ -38,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $form->field($model, 'domicilio')->textInput(['maxlength' => true, 'id' => 'address', 'placeholder' => 'Calle Ejemplo 123, Neuquén, Neuquén']) ?>
                             </div>
                             <div class="col col-lg-3">
-                                <label class="control-label" for="enviar">Mapa</label>
+                                <label class="control-label" for="enviar">Mapa (*)</label>
                                 <a class="btn btn-default form-control" id="enviar" value="Geocode">Verificar &raquo;</a>
                             </div>
                         </div>
@@ -71,13 +79,31 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $form->field($model, 'desea_adoptar')->checkbox(['yes', 'no']) ?>
                             </div>
                         </div>
-
-
-                        <?= $form->field($model, 'password')->passwordInput() ?>
+                        <div class="row">
+                            <div class="col col-lg-6">
+                                <?= $form->field($model, 'password')->passwordInput() ?>
+                            </div>
+                            <div class="col col-lg-6">
+                                <?= $form->field($model, 'password_repeat')->passwordInput() ?>
+                            </div>
+                        </div>
 
                         <?= $form->field($model, 'latitud')->hiddenInput(['id' => 'lat'])->label(false) ?>
 
                         <?= $form->field($model, 'longitud')->hiddenInput(['id' => 'long'])->label(false) ?>
+
+                        <?php
+                            if($es_root || $es_admin) {
+                                echo $form->field($model, 'rol_id')->widget(Select2::className(), [
+                                    'data' => ArrayHelper::map(Rol::find()->addOrderBy('rol_nombre')->all(), 'id', 'rol_nombre'),
+                                    'language' => 'es',
+                                    'options' => ['placeholder' => 'Seleccione Rol'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true,
+                                    ]
+                                ]);
+                            }
+                        ?>
 
                         <div class="form-group">
                             <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
