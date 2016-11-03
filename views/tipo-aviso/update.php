@@ -5,16 +5,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TipoAviso */
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Tipo Aviso',
-]) . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tipo Avisos'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->title = 'Modificar Tipo Aviso: ' . $model->nombre;
+$this->params['breadcrumbs'][] = ['label' => 'Tipo Avisos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->nombre, 'url' => ['view', 'id' => $model->id]];
 ?>
 <div class="tipo-aviso-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1><br>
 
     <?= $this->render('_form', [
         'model' => $model,

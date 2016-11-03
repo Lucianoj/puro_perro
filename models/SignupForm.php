@@ -34,10 +34,6 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['apodo', 'nombre','apellido','domicilio', 'telefono_celular', 'email', 'password'], 'required'],
-            [['email'], 'string', 'max' => 100],
-            [['apodo'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este usuario ya existe.'],
-            [['email'], 'email'], 
             [['apodo', 'nombre','apellido','domicilio', 'telefono_celular', 'localidad_id', 'email', 'password'], 'required'],
             [['email'], 'string', 'max' => 100],
             [['email'], 'email'],
@@ -47,7 +43,6 @@ class SignupForm extends Model
             [['telefono_fijo'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este teléfono ya existe.'],
             [['apodo'], 'string', 'min' => 2, 'max' => 100],
             [['telefono_fijo', 'telefono_celular'], 'number'],
-            [['telefono_fijo', 'telefono_celular'], 'number', 'max' => 25],
             ['password_repeat', 'required'],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Las contraseñas no coinciden" ],
         ];

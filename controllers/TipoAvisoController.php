@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\TipoAviso;
-use app\models\search\TipoAviso as TipoAvisoSearch;
+use app\models\search\TipoAvisoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

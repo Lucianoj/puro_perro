@@ -6,13 +6,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\EstadoAviso */
 
-$this->title = Yii::t('app', 'Crear nuevo estado');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Estado Avisos'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Nuevo Estado de Aviso';
+$this->params['breadcrumbs'][] = ['label' => 'Estado Avisos', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="estado-aviso-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1><br>
 
     <?= $this->render('_form', [
         'model' => $model,
