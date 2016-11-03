@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 use \yii\web\NotFoundHttpException;
 use app\models\PermisosHelpers;
-use app\models\Usuario;
+use app\models\User;
 
 /**
  * Login form
