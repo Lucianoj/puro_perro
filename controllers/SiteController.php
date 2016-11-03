@@ -6,10 +6,11 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use app\models\PasswordResetRequestForm;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
-use app\models\PasswordResetRequestForm;
+use app\models\ResetPasswordForm;
 
 class SiteController extends Controller
 {
@@ -119,6 +120,32 @@ class SiteController extends Controller
         }
 
         return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword($token)
+    {
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'Nueva contraseña guardada.');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
             'model' => $model,
         ]);
     }

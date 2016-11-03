@@ -1,5 +1,5 @@
 <?php
-namespace frontend\models;
+namespace app\models;
 
 use app\models\User;
 use yii\base\InvalidParamException;
@@ -17,7 +17,7 @@ class ResetPasswordForm extends Model
      * @var \app\models\User
      */
     private $_user;
-    private $password_repeat;
+    public $password_repeat;
 
 
     /**
@@ -46,7 +46,7 @@ class ResetPasswordForm extends Model
     {
         return [
             ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 3],
             ['password_repeat', 'required'],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Las contraseñas no coinciden" ],
         ];

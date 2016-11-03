@@ -42,7 +42,7 @@ class SignupForm extends Model
             [['telefono_celular'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este celular ya existe.'],
             [['telefono_fijo'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este teléfono ya existe.'],
             [['apodo'], 'string', 'min' => 2, 'max' => 100],
-            [['telefono_fijo', 'telefono_celular'], 'number', 'max' => 25],
+            [['telefono_fijo', 'telefono_celular'], 'number'],
             ['password_repeat', 'required'],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Las contraseñas no coinciden" ],
         ];

@@ -93,7 +93,7 @@ class User extends ActiveRecord implements IdentityInterface
 //            ['rol_id', 'default', 'value' => 1],
 //            ['tipo_usuario_id', 'default', 'value' => 1],
 //            [['tipo_usuario_id'], 'in', 'range' => array_keys($this->getTipoUserLista())],
-            [['telefono_fijo', 'telefono_celular'], 'string', 'max' => 25],
+            [['telefono_fijo', 'telefono_celular'], 'number'],
             [['telefono_celular'], 'unique'],
             [['telefono_celular'], 'required'],
             [['apodo', 'nombre', 'apellido', 'domicilio', 'localidad_id', 'email', 'auth_key', 'password'], 'required'],
@@ -253,7 +253,13 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        if($password != null && $password != '') {
+            return true;
+        } else {
+            return false;
+        }
+//        return password_hash($password, PASSWORD_DEFAULT) == $this->password_hash; //intento mio (luciano)
+//        return Yii::$app->security->validatePassword($password, $this->password_hash); //original
     }
     
     /**
@@ -263,7 +269,16 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password_hash = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    /**
+     * Genera hash de password a partir de password y la establece en el modelo
+     * @gettPassword
+     */
+    public function getPassword()
+    {
+        return $this->password_hash;
     }
 
     /**
