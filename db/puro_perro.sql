@@ -55,6 +55,37 @@ CREATE TABLE IF NOT EXISTS `color` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `color`
+--
+
+INSERT INTO `color`(`nombre`) VALUES
+('Nácar'),
+('Oliva'),
+('Blanco'),
+('Verde'),
+('Gris'),
+('Merengue tostado'),
+('Caramelo'),
+('Rosa'),
+('Beis'),
+('Aguamarina'),
+('Azul'),
+('Almendra'),
+('Marrón'),
+('Negro'),
+('Chocolate'),
+('Café con leche'),
+('Coral'),
+('Cian'),
+('Magenta'),
+('Rojo'),
+('Salmón'),
+('Amarillo'),
+('Oro'),
+('Verde Marino'),
+('Azul Marino');
+
 -- --------------------------------------------------------
 
 --
