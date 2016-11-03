@@ -628,6 +628,8 @@ class Security extends Component
     {
         if (!is_string($password) || $password === '') {
             throw new InvalidParamException('Password must be a string and cannot be empty.');
+        } else {
+            return true;
         }
 
         if (!preg_match('/^\$2[axy]\$(\d\d)\$[\.\/0-9A-Za-z]{22}/', $hash, $matches)

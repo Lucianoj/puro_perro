@@ -5,7 +5,10 @@ use yii\widgets\ActiveForm;
 use \kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use app\models\Localidad;
-
+use app\models\PermisosHelpers;
+use app\models\Rol;
+$es_root = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol('root');
+$es_admin = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol('admin');
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
@@ -67,6 +70,19 @@ use app\models\Localidad;
                             <?= $form->field($model, 'desea_adoptar')->checkbox(['yes', 'no']) ?>
                         </div>
                     </div>
+
+                    <?php
+                    if($es_root || $es_admin) {
+                        echo $form->field($model, 'rol_id')->widget(Select2::className(), [
+                            'data' => ArrayHelper::map(Rol::find()->addOrderBy('rol_nombre')->all(), 'id', 'rol_nombre'),
+                            'language' => 'es',
+                            'options' => ['placeholder' => 'Seleccione Rol'],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                            ]
+                        ]);
+                    }
+                    ?>
 
                     <?= $form->field($model, 'latitud')->hiddenInput(['id' => 'lat'])->label(false) ?>
 

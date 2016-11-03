@@ -20,7 +20,9 @@ class SignupForm extends Model
     public $desea_adoptar;
     public $ofrece_transito;
     public $email;
+    public $rol_id;
     public $password;
+    public $password_repeat;
     public $latitud;
     public $longitud;
 
@@ -32,14 +34,17 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['apodo', 'nombre','apellido','domicilio', 'telefono_celular', 'localidad_id', 'email'], 'required'],
+            [['apodo', 'nombre','apellido','domicilio', 'telefono_celular', 'localidad_id', 'email', 'password'], 'required'],
             [['email'], 'string', 'max' => 100],
-            [['apodo'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este usuario ya existe.'], 
+            [['email'], 'email'],
+            [['apodo'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este usuario ya existe.'],
             [['email'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este E-mail ya existe.'],
             [['telefono_celular'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este celular ya existe.'],
             [['telefono_fijo'], 'unique', 'targetClass' => '\app\models\User', 'message' => 'Este teléfono ya existe.'],
             [['apodo'], 'string', 'min' => 2, 'max' => 100],
-            [['telefono_fijo', 'telefono_celular'], 'string', 'max' => 25],
+            [['telefono_fijo', 'telefono_celular'], 'number', 'max' => 25],
+            ['password_repeat', 'required'],
+            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Las contraseñas no coinciden" ],
         ];
     }
     
@@ -49,17 +54,19 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'apodo' => Yii::t('app', 'Usuario'),
-            'nombre' => Yii::t('app', 'Nombre'),
-            'apellido' => Yii::t('app', 'Apellido'),
-            'domicilio' => Yii::t('app', 'Domicilio'),
-            'telefono_celular' => Yii::t('app', 'Celular'),
+            'apodo' => Yii::t('app', 'Usuario').' (*)',
+            'nombre' => Yii::t('app', 'Nombre').' (*)',
+            'apellido' => Yii::t('app', 'Apellido').' (*)',
+            'domicilio' => Yii::t('app', 'Domicilio').' (*)',
+            'telefono_celular' => Yii::t('app', 'Celular').' (*)',
             'telefono_fijo' => Yii::t('app', 'Teléfono Fijo'),
             'desea_adoptar' => Yii::t('app', 'Desea Adoptar?'),
             'ofrece_transito' => Yii::t('app', 'Ofrece Tránsito?'),
-            'localidad_id' => Yii::t('app', 'Localidad'),
-            'email' => Yii::t('app', 'E-mail'),
-            'password' => Yii::t('app', 'Contraseña'),
+            'localidad_id' => Yii::t('app', 'Localidad').' (*)',
+            'email' => Yii::t('app', 'E-mail').' (*)',
+            'rol_id' => Yii::t('app', 'Rol'),
+            'password' => Yii::t('app', 'Contraseña').' (*)',
+            'password_repeat' => Yii::t('app', 'Repetir Contraseña').' (*)',
         ];
     }
 
@@ -85,7 +92,7 @@ class SignupForm extends Model
             $user->telefono_fijo = $this->telefono_fijo;
             $user->telefono_celular = $this->telefono_celular;
             $user->tipo_usuario_id = 1;
-            $user->rol_id = 1;
+            $user->rol_id = $this->rol_id?$this->rol_id:1;
             $user->setPassword($this->password);
             $user->generateAuthKey();
             if ($user->save()) {

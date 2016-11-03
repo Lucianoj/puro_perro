@@ -27,6 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'apodo')->textInput(['autofocus' => true]) ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
+        
+        <div style="color:#999;margin:1em 0">
+            Si olvidó su contraseña, puede resetearla <?= Html::a('aquí', ['site/request-password-reset']) ?>.
+        </div>
 
         <?= $form->field($model, 'rememberMe')->checkbox([
             'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",

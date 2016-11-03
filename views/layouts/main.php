@@ -17,6 +17,7 @@ FontAwesomeAsset::register($this);
 
 $esInvitado = Yii::$app->user->isGuest;
 $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
+$es_admin = !$esInvitado && PermisosHelpers::requerirRol('admin');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -49,13 +50,18 @@ $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
             ],
         ]);
         NavBar::end();
-    } else if($es_root) {
+    } else if($es_root || $es_admin) {
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
                 ['label' => 'Usuarios', 'url' => ['/user/index']],
-                ['label' => 'Avisos', 'url' => ['/aviso/index']],
+                ['label' => 'Avisos', 'items' => [
+                    ['label' => 'Administrar Avisos', 'url' => ['aviso/index']],
+                    ['label' => 'Tipos de Aviso', 'url' => ['tipo-aviso/index']],
+                    ['label' => 'Estados de Aviso', 'url' => ['estado-aviso/index']],
+                    ],
+                ],
                 ['label' => 'Perros', 'url' => ['/perro/index']],
                 [
                     'label' => 'Salir ('.Yii::$app->user->identity->apodo . ')',
@@ -71,7 +77,6 @@ $es_root = !$esInvitado && PermisosHelpers::requerirRol('root');
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
-                ['label' => 'Avisos', 'url' => ['/avisos/index']],
                 ['label' => 'Inmuebles', 'url' => ['/inmuebles/index']],
                 [
                     'label' => 'Salir ('.Yii::$app->user->identity->apodo . ')',

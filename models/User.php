@@ -96,7 +96,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['telefono_fijo', 'telefono_celular'], 'string', 'max' => 25],
             [['telefono_celular'], 'unique'],
             [['telefono_celular'], 'required'],
-            [['apodo', 'nombre', 'apellido', 'domicilio', 'localidad_id', 'email', 'auth_key', 'password_hash'], 'required'],
+            [['apodo', 'nombre', 'apellido', 'domicilio', 'localidad_id', 'email', 'auth_key', 'password'], 'required'],
             [['telefono_fijo', 'telefono_celular', 'localidad_id', 'estado_usuario_id', 'tipo_usuario_id', 'rol_id', 'desea_adoptar', 'ofrece_transito'], 'integer'],
             ['apodo', 'filter', 'filter' => 'trim'],
             ['apodo', 'required'],
@@ -183,7 +183,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $apodo
      * @return static|null
      */
-    public static function findByapodo($apodo)
+    public static function findByUsername($apodo)
     {
         return static::findOne(['apodo' => $apodo]);
     }
