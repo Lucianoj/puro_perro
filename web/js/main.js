@@ -22,19 +22,20 @@ $(function(){
         //the if else are intentionally separated instead of put into a function to get the
         //button since it is using a class not an #id so there are many of them and we need
         //to ensure we get the right button and content.
-        if ($('#modal').data('bs.modal').isShown) {
-            $('#modal').find('#modalContent')
+        if ($('#kartik-modal').data('bs.modal').isShown) {
+            $('#kartik-modal').find('#modalContent')
                 .load($(this).attr('value'));
             //dynamiclly set the header for the modal
             document.getElementById('modalHeader').innerHTML = "<h3 class='text-center text-info'>" + $(this).attr('title') + '</h3>';
         } else {
             //if modal isn't open; open it and load content
-            $('#modal').modal('show')
+            $('#kartik-modal').modal('show')
                 .find('#modalContent')
                 .load($(this).attr('value'));
             //dynamiclly set the header for the modal
             document.getElementById('modalHeader').innerHTML =  "<h3 class='text-center text-info'> "  + $(this).attr('title') + '</h3>';
         }
+        $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
     });
 });
 

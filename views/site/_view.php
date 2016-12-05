@@ -10,6 +10,7 @@
 use yii\helpers\Html;
 use app\models\Perro;
 use app\models\Aviso;
+use \yii\helpers\Url;
 /* @var $this AvisoController */
 /* @var $model Aviso */
 ?>
@@ -52,14 +53,16 @@ switch ($modelPerro->estado_perro_id){
 ?>
 <div class="col-sm-6 col-md-6 col-lg-6">
     <div class="<?=$class?>">
-        <div class="col-sm-8 col-md-8 col-lg-8">
-            <h5 class="<?=$classText?>"><?php echo Html::encode('Título Original: '.$modelAviso->titulo) ?></h5>
-            <h6 class="text-center text-primary"><?php echo Html::encode(substr($model->mensaje, 0, 100).'...'); ?></h6>
+        <div class="row">
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <h5 class="<?=$classText?>"><?php echo Html::encode('Título Original: '.$modelAviso->titulo) ?></h5>
+                <h6 class="text-center text-primary"><?php echo Html::encode(substr($model->mensaje, 0, 100).'...'); ?></h6>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <img class="img-responsive" src="<?=$model->foto_reencuentro?>" alt="<?=$modelPerro->nombre?>" width = 150></img>
+            </div><br>
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <img class="img-responsive" src="<?=$model->foto_reencuentro?>" alt="<?=$modelPerro->nombre?>" width = 150></img>
-        </div>
-        <p class="text-center"><?= Html::a(Html::encode('Ver Aviso'), ['aviso/view', 'id' => $modelAviso->id]) ?></p>
+        <br><a class="btn btn-primary" href="<?=Url::to(['aviso/view', 'id' => $modelAviso->id])?>">Ver Aviso</a>
     </div>
 </div>
 

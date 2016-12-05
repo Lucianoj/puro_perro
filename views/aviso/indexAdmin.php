@@ -49,7 +49,7 @@ switch ($estado) {
 
 ?>
 <div class="aviso-index-user">
-    <h1 class="text-center <?=$text?>"><i class="glyphicon glyphicon-bullhorn"></i><?= Html::encode($this->title) ?></h1><br>
+    <h1 class="text-center <?=$text?>"><i class="fa fa-bullhorn"></i><?= Html::encode($this->title) ?></h1><br>
     <?php
 
     $columns = [
@@ -135,7 +135,7 @@ switch ($estado) {
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
         'panel' => [
             'type' => $panel_type,
-            'heading' => '<h3 class = "panel-title"><i class="fa fa-info-circle"></i> Listado de Avisos </h3>',
+            'heading' => '<h3 class = "panel-title"><i class="fa fa-info-circle"></i> Listado de Avisos para Administrador</h3>',
         ],
         'export' => [
             'label' => 'Página',

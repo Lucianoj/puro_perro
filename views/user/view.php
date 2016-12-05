@@ -22,7 +22,7 @@ if(!($es_root || $es_user || $es_admin) ) {
 ?>
 <div class="user-view">
 
-    <h1 class="text-center text-info"><i class="fa fa-user"></i><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center text-primary"><i class="fa fa-user"></i><?= Html::encode($this->title) ?></h1>
 
     <p>
 
@@ -74,7 +74,7 @@ if(!($es_root || $es_user || $es_admin) ) {
     <?php
         if($es_adoptante == 1) {?>
             <div class="panel panel-success">
-                <div class="panel-heading"><h4 class="text-primary"><i class="fa fa-heart-o"></i> Datos como Adoptante</h4></div>
+                <div class="panel-heading"><h4 class="text-default"><i class="fa fa-heart-o"></i> Datos como Adoptante</h4></div>
                 <div class="panel-body">
 
                     <?php

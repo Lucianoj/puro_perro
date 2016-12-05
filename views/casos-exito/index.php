@@ -4,6 +4,7 @@ use yii\helpers\Html;
 //use yii\grid\GridView;
 use kartik\grid\GridView;
 use app\models\Aviso;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\CasosExitoSearch */
@@ -39,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'label' => 'Link',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return Html::a(Html::encode('Ver Aviso'), ['aviso/view', 'id' => $model->aviso_id]);
+                                return '<a class="btn btn-sm btn-primary" href="'.Url::to(['aviso/view', 'id' => $model->aviso_id]).'">Ver</a>';
                             },
                         ],
                     ],

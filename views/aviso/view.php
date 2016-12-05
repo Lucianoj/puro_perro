@@ -71,7 +71,7 @@ switch($model->tipo_aviso_id) {
     <p>
     <div class="row">
         <?php
-            if (($es_autor || $es_root_o_admin) and $casoResuelto)
+            if (($es_autor || $es_root_o_admin) and !$casoResuelto)
                 echo Html::a('Modificar Aviso', ['update', 'id' => $model->id], ['class' => 'btn btn-lg btn-info']);
         ?>
         <?php
@@ -192,7 +192,7 @@ switch($model->tipo_aviso_id) {
                                 <h3 class="text-center text-info">Ubicación Geográfica</h3>
                                 <div class="panel">
                                     <div class="panel panel-body panel-info">
-                                        <div id='map' style='width:730px; height:400px;'></div>
+                                        <div id='map' style='width:710px; height:400px;'></div>
                                     </div>
                                 </div>
                             </div>

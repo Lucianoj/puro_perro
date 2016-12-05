@@ -5,6 +5,7 @@ use yii\widgets\ListView;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use app\models\Perro;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\AvisoSearch */
@@ -87,14 +88,19 @@ switch ($tipo) {
 <?php
     Modal::begin([
             'headerOptions' => ['id' => 'modalHeader'],
-            'id' => 'modal',
+            'options' => [
+                'id' => 'kartik-modal',
+                'tabindex' => false,
+            ],
+//            'id' => 'modal',
             'size' => 'modal-lg',
-            //keeps from closing modal with esc key or by clicking out of the modal.
+        //keeps from closing modal with esc key or by clicking out of the modal.
             //user must click cancel or X to close
             //'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
         ]);
         echo "<div id='modalContent'><div style='text-align:center'></div></div>";
     Modal::end();
+
 ?>
 <?php
 $ubicaciones = [];

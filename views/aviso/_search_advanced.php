@@ -332,7 +332,7 @@ $título = '';
                 <div class="row">
                     <div class="col col-lg-8">
                         <div class="panel panel-body panel-info">
-                            <div id='map' style='width:510px; height:300px;'></div>
+                            <div id='map-modal' style='width:510px; height:300px;'></div>
                         </div>
                     </div>
                     <div class="col col-lg-4">
@@ -357,9 +357,9 @@ $título = '';
     </div>
 </div>
 <script>
-    function initMap() {
+    function initMap2() {
         var markers = [];
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map-modal'), {
             zoom: 13,
             center: {lat: -38.9516784, lng: -68.05918880000002} //Neuquén
         });
@@ -425,4 +425,4 @@ $título = '';
 
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5TwT3vXLfYEv9WD-kOcEg7YQLcncsls&libraries=geometry&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5TwT3vXLfYEv9WD-kOcEg7YQLcncsls&libraries=geometry&callback=initMap2" async defer></script>
