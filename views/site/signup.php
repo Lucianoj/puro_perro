@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\SignupForm */
+/* @var $model app\models\SignupForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -19,7 +19,7 @@ $this->title = ' Alta de Usuario';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
-    <h1 class="text-center"><i class="fa fa-user"></i><?= Html::encode($this->title) ?></h1><br>
+    <h1 class="text-center"><i class="fa fa-user"></i><?= Html::encode($this->title)?></h1><br>
 
     <div class="row">
         <div class="col col-lg-6">
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="col col-lg-3">
                                 <label class="control-label" for="enviar">Mapa (*)</label>
-                                <a class="btn btn-default form-control" id="enviar" value="Geocode">Verificar &raquo;</a>
+                                <a class="btn btn-info form-control" id="enviar" value="Geocode">Verificar &raquo;</a>
                             </div>
                         </div>
 
@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 12,
             center: {lat: -38.9516784, lng: -68.05918880000002} //Neuquén
         });
         var geocoder = new google.maps.Geocoder();
@@ -145,10 +145,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 jQuery('#lat').val(results[0].geometry.location.lat());
                 jQuery('#long').val(results[0].geometry.location.lng());
             } else {
-                alert('Geocode was not successful for the following reason: ' + status);
+                alert('Geolocalización falló: ' + status);
             }
         });
     }
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5TwT3vXLfYEv9WD-kOcEg7YQLcncsls&signed_in=true&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD5TwT3vXLfYEv9WD-kOcEg7YQLcncsls&callback=initMap" async defer></script>

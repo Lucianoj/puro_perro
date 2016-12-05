@@ -11,6 +11,12 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
 use app\models\ResetPasswordForm;
+use app\models\Aviso;
+use app\models\search\AvisoSearch;
+use app\models\Perro;
+use app\models\search\PerroSearch;
+use app\models\search\CasosExitoSearch;
+
 
 class SiteController extends Controller
 {
@@ -52,7 +58,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $searchModel = new CasosExitoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionLogin()
@@ -87,7 +100,7 @@ class SiteController extends Controller
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+            if ($model->contact(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', 'Gracias por contactarnos. Le responderemos tan pronto como sea posible.');
             } else {
                 Yii::$app->session->setFlash('error', 'Hubo un error enviando el mail.');
@@ -180,5 +193,14 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionGetDataGoogleMaps($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        echo curl_exec($ch);
     }
 }

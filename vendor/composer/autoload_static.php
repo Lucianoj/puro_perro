@@ -8,10 +8,10 @@ class ComposerStaticInit846026c1c38561908739792343bce041
 {
     public static $files = array (
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '7e702cccdb9dd904f2ccf22e5f37abae' => __DIR__ . '/..' . '/facebook/php-sdk-v4/src/Facebook/polyfills.php',
     );
@@ -37,11 +37,13 @@ class ComposerStaticInit846026c1c38561908739792343bce041
         array (
             'kartik\\social\\' => 14,
             'kartik\\select2\\' => 15,
+            'kartik\\nav\\' => 11,
             'kartik\\mpdf\\' => 12,
             'kartik\\icons\\' => 13,
             'kartik\\helpers\\' => 15,
             'kartik\\grid\\' => 12,
             'kartik\\export\\' => 14,
+            'kartik\\dropdown\\' => 16,
             'kartik\\dialog\\' => 14,
             'kartik\\detail\\' => 14,
             'kartik\\date\\' => 12,
@@ -123,6 +125,10 @@ class ComposerStaticInit846026c1c38561908739792343bce041
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
         ),
+        'kartik\\nav\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-nav-x',
+        ),
         'kartik\\mpdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf',
@@ -142,6 +148,10 @@ class ComposerStaticInit846026c1c38561908739792343bce041
         'kartik\\export\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-export',
+        ),
+        'kartik\\dropdown\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-dropdown-x',
         ),
         'kartik\\dialog\\' => 
         array (

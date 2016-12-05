@@ -59,6 +59,14 @@ class EstadoClinico extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getNombredescripcion()
+    {
+        return $this->nombre.' ('.$this->descripcion.')';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTratamientos()
     {
         return $this->hasMany(Tratamiento::className(), ['estado_clinico_id' => 'id']);

@@ -143,7 +143,7 @@ class Security extends Component
     }
 
     /**
-     * Verifies and decrypts data encrypted with [[encryptByPassword()]].
+     * Verifies and decrypts data encrypted with [[encryptByKey()]].
      * @param string $data the encrypted data to decrypt
      * @param string $inputKey the input to use for encryption and authentication
      * @param string $info optional context and application specific information, see [[hkdf()]]
@@ -628,10 +628,7 @@ class Security extends Component
     {
         if (!is_string($password) || $password === '') {
             throw new InvalidParamException('Password must be a string and cannot be empty.');
-        } 
-        //else {
-        //    return true;
-        //}
+        }
 
         if (!preg_match('/^\$2[axy]\$(\d\d)\$[\.\/0-9A-Za-z]{22}/', $hash, $matches)
             || $matches[1] < 4

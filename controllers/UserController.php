@@ -8,6 +8,7 @@ use app\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Adoptante;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -33,10 +34,17 @@ class UserController extends Controller
      * Lists all User models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($desea_adoptar = 0)
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if($desea_adoptar == 1) {
+            $searchModel = new UserSearch(['desea_adoptar' => 1]);
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        } else {
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -51,9 +59,23 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+
+        if(($model->desea_adoptar == 1) && $modelAdoptante = Adoptante::findOne(['user_id' => $id])){
+            return $this->render('view', [
+                'model' => $model,
+                'es_adoptante' => $model->desea_adoptar,
+                'completo_planilla_adopcion' => 1,
+                'modelAdoptante' => $modelAdoptante,
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $model,
+                'es_adoptante' => $model->desea_adoptar,
+                'completo_planilla_adopcion' => 0,
+                'modelAdoptante' => null,
+            ]);
+        }
     }
 
     /**

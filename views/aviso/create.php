@@ -1,21 +1,25 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aviso */
 
-$this->title = 'Crear un nuevo aviso';
+//$this->title = 'Crear un nuevo aviso';
 $this->params['breadcrumbs'][] = ['label' => 'Avisos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+if (Yii::$app->getUser()->isGuest)
+    Yii::$app->getResponse()->redirect(Url::to(['site/login']));
 ?>
 <div class="aviso-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelPerro' => $modelPerro,
+        'tipo_aviso' => $tipo_aviso,
     ]) ?>
 
 </div>

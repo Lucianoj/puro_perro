@@ -9,6 +9,7 @@ use app\models\PermisosHelpers;
 use app\models\Rol;
 $es_root = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol('root');
 $es_admin = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol('admin');
+$newRow = $model->isNewRecord;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,7 +23,7 @@ $es_admin = !Yii::$app->getUser()->isGuest && PermisosHelpers::requerirMinimoRol
                 <div class="panel-heading"><h4 class="text-default"><i class="fa fa-exclamation-triangle"></i> Por favor complete sus datos</h4></div>
                 <div class="panel-body">
 
-                    <?= $form->field($model, 'apodo') ?>
+                    <?= $form->field($model, 'apodo')->textInput(['readOnly' => !$model->isNewRecord]) ?>
 
                     <div class="row">
                         <div class="col col-lg-6">
